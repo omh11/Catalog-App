@@ -1,0 +1,71 @@
+<!-- <html>
+
+<body>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li> <strong> {{message}} </strong></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
+
+<h1> Are you sure you want to delete {{itemToDelete.name}}? </h1>
+
+<form action="{{ url_for('deleteSportItem',sport_category_name = sport_category_name,sport_item_name = sport_item_name)}}" method = 'post'>
+
+<input type='submit', value = 'Delete'>
+
+</form>
+
+<a href = "{{ url_for('mainPage')}}"> Cancel </a>
+</body>
+
+</html>
+
+ -->
+
+
+<html>
+
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css')}}">
+</head>
+
+<body>
+
+  <div id="page">
+    <div id= "header">
+      <div class="title"> <h1> Catalog App </h1></div>
+      {% for message in get_flashed_messages() %}
+        <div class=flash>{{ message }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="login">
+        {% if credentials %}
+        <form action="{{ url_for('gdisconnect') }}">
+          <input class= "login" type="submit" value="Logout">
+        </form>
+        {% else %}
+        <form action="{{ url_for('showLogin') }}">
+          <input class= "login" type="submit" value="Login">
+        </form>
+        {% endif %}
+    </div>
+
+    <div id= "outerbox">
+    <div id= "innerbox">
+      <div class="itemdescription">
+        <h2> Are you sure you want to delete {{itemToDelete.name}}?  </h2>
+        <form action="{{ url_for('deleteSportItem',sport_category_name = sport_category_name,sport_item_name = sport_item_name)}}" method = 'post'>
+          <input type='submit', value = 'Delete'> <a href = "{{ url_for('mainPage')}}">Cancel</a>
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

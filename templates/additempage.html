@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css')}}">
+</head>
+
+<body>
+
+  <div id="page">
+    <div id= "header">
+      <div class="title"> <h1> Catalog App </h1></div>
+      {% for message in get_flashed_messages() %}
+        <div class=flash>{{ message }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="login">
+        {% if credentials %}
+        <form action="{{ url_for('gdisconnect') }}">
+          <input class= "login" type="submit" value="Logout">
+        </form>
+        {% else %}
+        <form action="{{ url_for('showLogin') }}">
+          <input class= "login" type="submit" value="Login">
+        </form>
+        {% endif %}
+    </div>
+
+    <div id= "outerbox">
+    <div id= "innerbox">
+      <div class="itemdescription">
+        <h2> ADD ITEM </h2>
+        <form action="{{ url_for('newSportItem')}}" method='post'>
+          <p>Title:</p>
+            <input type='text' size='30' name='name' placeholder="Item Name (ex. Puck, Ball...etc.)">
+          <p>Description:</p>
+            <input type='text' size='30' name='description' placeholder = "Item Description">
+          <p>Category:</p>
+          <select name="category">
+            {% for o in option_list %}
+              <option value = "{{ o.name }}">
+                {{ o.name }}
+              </option>
+            {% endfor %}
+          </select>
+          <input type='submit' value='Create'>
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

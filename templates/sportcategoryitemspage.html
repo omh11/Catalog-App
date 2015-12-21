@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css')}}">
+</head>
+
+<body>
+
+  <div id="page">
+    <div id= "header">
+      <div class="title"> <h1> Catalog App </h1></div>
+      {% for message in get_flashed_messages() %}
+        <div class=flash>{{ message }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="login">
+        {% if credentials %}
+        <form action="{{ url_for('gdisconnect') }}">
+          <input class= "login" type="submit" value="Logout">
+        </form>
+        {% else %}
+        <form action="{{ url_for('showLogin') }}">
+          <input class = "login" type="submit" value="Login">
+        </form>
+        {% endif %}
+    </div>
+
+    <div id= "outerbox">
+    <div id= "innerbox">
+      <div class="categories">
+      </br>
+        <h3> CATEGORIES </h3>
+        <table>
+        {% for i in sport_categories %}
+        <tr><a href="{{url_for('sportCategory', sport_category_name = i.name)}}">{{i.name}}</a></tr>
+        </br>
+        {% endfor %}
+        </table>
+      </div>
+      <div class="items">
+        {% if credentials %}
+        <a href = "{{url_for('newSportItem')}}"  style = "visibility : visible"> Add Item </a>
+        {% else %}
+        <a href = "{{url_for('newSportItem')}}"  style = "visibility : hidden"> Add Item </a>
+        {% endif %}
+        <h3 style = "text-transform: uppercase;"> {{ sport_category.name }} ITEMS ({{no_of_items}} Items)</h3>
+        <table>
+        {% for o in sport_item %}
+        <tr> <a href="{{url_for('sportItemDescription', sport_category_name = o.sport_category_name, sport_item_name = o.name)}}">{{o.name}}</a> <i>({{o.sport_category_name}})</i> </tr>
+        </br>
+        {% endfor %}
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+<!--
+
+<html>
+  <body>
+    <h1>{{ sport_category.name }}</h1>
+
+    <h2>{{no_of_items}}</h2>
+
+    {% for i in sport_item %}
+
+    {{i.name}}
+  </br>
+
+    {{i.description}}
+
+</br>
+</br>
+
+
+    {% endfor %}
+
+  </body>
+
+</html> -->
