@@ -204,6 +204,8 @@ def sportItemDescription(sport_category_name, sport_item_name):
 @app.route('/catalog/add/', methods=['GET', 'POST'])
 def newSportItem():
     credentials = login_session.get('credentials')
+    if 'username' not in login_session:
+        return redirect('/login')
     if request.method == 'POST':
         addSportItem = SportItem(name=request.form['name'],
                                  description=request.form['description'],
@@ -256,6 +258,8 @@ def editSportItem(sport_category_name, sport_item_name):
            methods=['GET', 'POST'])
 def deleteSportItem(sport_item_name, sport_category_name):
     credentials = login_session.get('credentials')
+    if 'username' not in login_session:
+        return redirect('/login')
     itemToDelete = session.query(SportItem).filter_by(
                     sport_category_name=sport_category_name,
                     name=sport_item_name).one()

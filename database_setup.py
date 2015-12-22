@@ -32,18 +32,14 @@ class SportItem(Base):
     sport_category_name = Column(Integer, ForeignKey('sport_category.name'))
     sport_category = relationship(SportCategory)
 
-# Define the serialize property to support JSON creation
+    @property
+    def serialize(self):
 
-
-@property
-def serialize(self):
-    return {
-        'name': self.name,
-        'id': self.id,
-        'description': self.description,
-        'time': self.time
+        return {
+            'name': self.name,
+            'description': self.description,
+            'id': self.id,
         }
-
 
 engine = create_engine('sqlite:///catalogapp.db')
 Base.metadata.create_all(engine)
